@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".VideoActivity">
+
+    <VideoView
+        android:id="@+id/videoView"
+        android:layout_width="334dp"
+        android:layout_height="309dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="22dp"
+        android:layout_marginTop="22dp"
+        android:layout_marginEnd="28dp"
+        android:layout_marginRight="28dp"
+        android:layout_marginBottom="236dp"
+        tools:ignore="RtlCompat" />
+
+    <Button
+        android:id="@+id/uploadbtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="141dp"
+        android:layout_marginLeft="141dp"
+        android:layout_marginTop="453dp"
+        android:layout_marginEnd="155dp"
+        android:layout_marginRight="155dp"
+        android:layout_marginBottom="66dp"
+        android:onClick="upload"
+        android:text="upload" />
+
+    <ProgressBar
+        android:id="@+id/uploadProgressbar"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="163dp" />
+
+    <Button
+        android:id="@+id/recordbtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/uploadbtn"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginStart="21dp"
+        android:layout_marginLeft="21dp"
+        android:layout_marginTop="446dp"
+        android:layout_marginEnd="275dp"
+        android:layout_marginRight="275dp"
+        android:layout_marginBottom="7dp"
+        android:onClick="record"
+        android:text="record" />
+
+    <Button
+        android:id="@+id/downloadbtn"
+        android:layout_width="114dp"
+        android:layout_height="57dp"
+        android:layout_alignEnd="@+id/videoView"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="256dp"
+        android:layout_marginLeft="256dp"
+        android:layout_marginTop="448dp"
+        android:layout_marginEnd="-14dp"
+        android:layout_marginBottom="62dp"
+        android:onClick="download"
+        android:text="download"
+        tools:ignore="RtlCompat" />
+
+    <Button
+        android:id="@+id/sendbtn"
+        android:layout_width="107dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/downloadbtn"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="39dp"
+        android:layout_marginLeft="39dp"
+        android:layout_marginTop="-62dp"
+        android:layout_marginEnd="238dp"
+        android:layout_marginRight="238dp"
+        android:layout_marginBottom="12dp"
+        android:text="send" />
+</RelativeLayout>

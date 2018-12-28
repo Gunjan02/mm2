@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".DeepLinkActivity"
+    android:orientation="vertical">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:background="#FF92A0D7"
+        android:padding="20dp">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:text="You got an invitation !!"
+            android:textColor="#FFF"
+            android:textSize="20sp"/>
+        <ImageView
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:src="@mipmap/ic_launcher_round"/>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginBottom="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp">
+        <TextView
+            android:id="@+id/deep_link_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Deep Link not set"
+            android:textAppearance="@style/TextAppearance.AppCompat.Title"/>
+        <TextView
+            android:id="@+id/invitation_id_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Invitation ID not set"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+            android:textSize="18sp"
+            android:singleLine="true"
+            android:ellipsize="end"/>
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/button_ok"
+            android:layout_gravity="end"
+            android:text="OKAY"
+            style="@style/Widget.AppCompat.Button.Borderless.Colored"/>
+    </LinearLayout>
+</LinearLayout>
