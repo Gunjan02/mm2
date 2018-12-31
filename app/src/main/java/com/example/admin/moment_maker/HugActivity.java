@@ -7,6 +7,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -41,20 +42,43 @@ public class HugActivity extends AppCompatActivity implements GoogleApiClient.On
     private static final int REQUEST_INVITE = 0;
     private static final String TAG = MainActivity.class.getSimpleName();
     private GoogleApiClient mGoogleApiClient;
-    DatabaseReference ref;
-    List<UserDetails> userslist;
+    private DatabaseReference ref;
+    private List<UserDetails> mUploads;
     private ProgressBar mprogress;
+    private ImageAdapter mAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_hug);
-        mRecyclerView=(RecyclerView) findViewById(R.id.rv);
-        mRecyclerView.setHasFixedSize(true);
-        mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-
-        ref=FirebaseDatabase.getInstance().getReference("Hugs");
         mprogress=(ProgressBar)findViewById(R.id.progressbar2);
+        mRecyclerView=(RecyclerView) findViewById(R.id.rv);
+        GridLayoutManager layoutManager=new GridLayoutManager(this,2);
+        mRecyclerView.setLayoutManager(layoutManager);
+        mUploads = new ArrayList<>();
+        ref=FirebaseDatabase.getInstance().getReference("Uploads");
+       ref.addValueEventListener(new ValueEventListener() {
+           @Override
+           public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+               for(DataSnapshot postSnapshot:dataSnapshot.getChildren()){
+                   UserDetails upload = new UserDetails(postSnapshot.child("hugId").getValue().toString(),
+                           postSnapshot.child("title").getValue().toString(),
+                           postSnapshot.child("description").getValue().toString(),
+                           postSnapshot.child("date").getValue().toString(),
+                           postSnapshot.child("imageUrl").getValue().toString());
+                   //UserDetails upload = postSnapshot.getValue(UserDetails.class);
+                   mUploads.add(upload);
+               }
+               mAdapter = new ImageAdapter(HugActivity.this,mUploads);
+               mRecyclerView.setAdapter(mAdapter);
+               mprogress.setVisibility(View.INVISIBLE);
+           }
+
+           @Override
+           public void onCancelled(@NonNull DatabaseError databaseError) {
+Toast.makeText(HugActivity.this,databaseError.getMessage(),Toast.LENGTH_LONG).show();
+           }
+       });
         mGoogleApiClient = new GoogleApiClient.Builder(this).addApi(AppInvite.API)
                 .enableAutoManage(this,this).build();
         boolean autoLaunchDeepLink = true;
@@ -65,24 +89,6 @@ public class HugActivity extends AppCompatActivity implements GoogleApiClient.On
     public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
         Log.d(TAG,"connectionFailed"+connectionResult);
         Toast.makeText(getApplicationContext(),"Google play services error",Toast.LENGTH_LONG).show();
-    }
-    @Override
-    protected void onStart() {
-        super.onStart();
-        FirebaseRecyclerAdapter<UserDetails,ViewHolder> firebaseRecyclerAdapter=
-                new FirebaseRecyclerAdapter<UserDetails, ViewHolder>(
-                        UserDetails.class,
-                        R.layout.hug_listview,
-                        ViewHolder.class,
-                        ref
-                ) {
-                    @Override
-                    protected void populateViewHolder(ViewHolder viewHolder, UserDetails model, int position) {
-
-                        viewHolder.setDetails(getApplicationContext(),model.getTitle(),model.getDescription(),model.getDate(),model.getImageUrl());
-                    }
-                };
-        mRecyclerView.setAdapter(firebaseRecyclerAdapter);
     }
 
     public void sendInvite(View view) {

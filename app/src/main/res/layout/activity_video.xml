@@ -46,8 +46,10 @@
         style="?android:attr/progressBarStyleHorizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginBottom="163dp" />
+        android:layout_marginBottom="124dp"
+        android:layout_alignParentLeft="true" />
 
     <Button
         android:id="@+id/recordbtn"
@@ -103,4 +105,41 @@
         android:layout_marginRight="238dp"
         android:layout_marginBottom="12dp"
         android:text="send" />
+
+    <EditText
+        android:id="@+id/editText"
+        android:layout_width="163dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="9dp"
+        android:layout_marginLeft="9dp"
+        android:layout_marginBottom="159dp"
+        android:ems="10"
+        android:hint="Recording video for...."
+        android:inputType="textPersonName" />
+
+    <EditText
+        android:id="@+id/editText2"
+        android:layout_width="171dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="189dp"
+        android:layout_marginLeft="189dp"
+        android:layout_marginTop="366dp"
+        android:layout_marginEnd="24dp"
+        android:layout_marginRight="24dp"
+        android:layout_marginBottom="155dp"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:hint="Date"
+        android:onClick="date"
+        android:textStyle="italic"/>
+
 </RelativeLayout>

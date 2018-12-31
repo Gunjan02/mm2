@@ -51,7 +51,7 @@ public class DescriptionActivity extends AppCompatActivity {
     File file;
     Uri uri;
     private static final int PICK_IMAGE_REQUEST=1;
-    Intent GalIntent, CropIntent ;
+    Intent GalIntent;
     EditText txtDate,hugdescription,hugtitle;
     private int mYear, mMonth, mDay;
     private DatabaseReference mDatabase;
@@ -83,14 +83,14 @@ public class DescriptionActivity extends AppCompatActivity {
         mAuth=FirebaseAuth.getInstance();
         mUser=mAuth.getCurrentUser();
 
-        mDatabase=FirebaseDatabase.getInstance().getReference("Hugs");
+        mDatabase=FirebaseDatabase.getInstance().getReference("Uploads");
         ref=FirebaseStorage.getInstance().getReference("Uploads");
 
 
         uploadbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                    mprogressbar.setVisibility(View.VISIBLE);
                     uploadFile();
 
             }
@@ -104,14 +104,13 @@ public class DescriptionActivity extends AppCompatActivity {
         });
     }
 
-    private String getFileExtension(Uri uri){
-        ContentResolver cr=getContentResolver();
-        MimeTypeMap mime=MimeTypeMap.getSingleton();
-        return mime.getExtensionFromMimeType(cr.getType(uri));
-    }
     private void uploadFile() {
         if(uri!=null){
-            StorageReference fileref=ref.child(System.currentTimeMillis()+"."+getFileExtension(uri));
+
+            titleString=hugtitle.getText().toString();
+            descriptionString=hugdescription.getText().toString().trim();
+            dateString=txtDate.getText().toString();
+            StorageReference fileref=ref.child(titleString);
             mTask=fileref.putFile(uri)
                     .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                         @Override
@@ -121,16 +120,12 @@ public class DescriptionActivity extends AppCompatActivity {
                             handler.postDelayed(new Runnable() {
                                 @Override
                                 public void run() {
-
+                                    mprogressbar.setVisibility(View.GONE);
                                     mprogressbar.setProgress(0);
                                 }
                             },500);
 
                             Toast.makeText(DescriptionActivity.this, "Upload Successful", Toast.LENGTH_SHORT).show();
-
-                            titleString=hugtitle.getText().toString();
-                            descriptionString=hugdescription.getText().toString().trim();
-                            dateString=txtDate.getText().toString();
 
                             if(!TextUtils.isEmpty(titleString)&&!TextUtils.isEmpty(descriptionString)&&!TextUtils.isEmpty(dateString)){
 
@@ -175,21 +170,6 @@ public class DescriptionActivity extends AppCompatActivity {
             Picasso.with(this).load(uri).into(imageView);
         }
 
-    }
-    public void ImageCropFunction() {
-        // Image Crop Code
-        try {
-            CropIntent = new Intent("com.android.camera.action.CROP");
-            CropIntent.setDataAndType(uri, "image/*");
-            CropIntent.putExtra("crop", "true");
-            CropIntent.putExtra("outputX", 180);
-            CropIntent.putExtra("outputY", 180);
-            CropIntent.putExtra("aspectX", 3);
-            CropIntent.putExtra("aspectY", 4);
-            CropIntent.putExtra("scaleUpIfNeeded", true);
-            CropIntent.putExtra("return-data", true);
-            startActivityForResult(CropIntent, 1);
-        } catch (ActivityNotFoundException e) {}
     }
 
     public void date(View view) {

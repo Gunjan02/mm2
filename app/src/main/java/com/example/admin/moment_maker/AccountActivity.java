@@ -111,4 +111,9 @@ public class AccountActivity extends AppCompatActivity {
         Intent viewhug=new Intent(AccountActivity.this,HugActivity.class);
         startActivity(viewhug);
     }
+
+    public void allMyVideos(View view) {
+        Intent intent = new Intent(AccountActivity.this,VideoRecycler.class);
+        startActivity(intent);
+    }
 }
